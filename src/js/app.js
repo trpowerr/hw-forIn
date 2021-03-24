@@ -8,16 +8,14 @@ function orderByProps(obj, arr) {
       if (arr[value] == value2) {
         finalArr.push(`key: "${value2}", value: "${obj[value2]}"`)
         delete obj[value2];
-      } else {
-        musor.push(`key: "${value2}", value: "${obj[value2]}"`)
-      }
+      }   
     }
   }
-  console.log(finalArr);
-  console.log(musor.sort());
-  
+  for(let value in obj) {
+    musor.push(`key: "${value}", value: "${obj[value]}"`)
+  }
+
+  return finalArr.concat(musor.sort())
 }
 
 orderByProps(obj, ["name", "level"])
-console.log(obj)
-//console.log(orderByProps(obj, ["name", "level"]));
