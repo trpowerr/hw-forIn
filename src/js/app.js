@@ -1,23 +1,26 @@
-const obj = {name: 'мечник', health: 10, level: 2, attack: 80, defence: 40};
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-param-reassign */
+export const person = {
+  name: 'мечник', health: 10, level: 2, attack: 80, defence: 40,
+};
 
-function orderByProps(obj, arr) {
-  const finalArr = [];
-  const musor = []
-  for (let value in arr) {
-    for (let value2 in obj) {
-      if (arr[value] == value2) {
-        finalArr.push(`key: "${value2}", value: "${obj[value2]}"`)
+export default function orderByProps(obj, param) {
+  const paramArr = [];
+  const otherParamArr = [];
+  for (const value in param) {
+    for (const value2 in obj) {
+      if (param[value] === value2) {
+        paramArr[paramArr.length] = { key: value2, value: obj[value2] };
         delete obj[value2];
-      } else {
-        musor.push(`key: "${value2}", value: "${obj[value2]}"`)
       }
     }
   }
-  console.log(finalArr);
-  console.log(musor.sort());
-  
-}
+  for (const value in obj) {
+    otherParamArr[otherParamArr.length] = { key: value, value: obj[value] };
+  }
 
-orderByProps(obj, ["name", "level"])
-console.log(obj)
-//console.log(orderByProps(obj, ["name", "level"]));
+  otherParamArr.sort((a, b) => a.key.localeCompare(b.key));
+
+  return paramArr.concat(otherParamArr.sort());
+}
