@@ -8,16 +8,14 @@ export const person = {
 export default function orderByProps(obj, param) {
   const paramArr = [];
   const otherParamArr = [];
-  for (const value in param) {
-    for (const value2 in obj) {
-      if (param[value] === value2) {
-        paramArr[paramArr.length] = { key: value2, value: obj[value2] };
-        delete obj[value2];
+  for (const objKey in obj) {
+    if (obj.hasOwnProperty(objKey)) {
+      if (param.includes(objKey)) {
+        paramArr[paramArr.length] = { key: objKey, value: obj[objKey] };
+      } else {
+        otherParamArr[otherParamArr.length] = { key: objKey, value: obj[objKey] };
       }
     }
-  }
-  for (const value in obj) {
-    otherParamArr[otherParamArr.length] = { key: value, value: obj[value] };
   }
 
   otherParamArr.sort((a, b) => a.key.localeCompare(b.key));
